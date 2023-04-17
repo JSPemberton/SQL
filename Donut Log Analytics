@@ -1,0 +1,39 @@
+A preexisting table was created titled Winston's Donut Logs. The table was made up of data showing how many donuts Winston eats at each year of his life, including reasons to explain Winston's eating habits. Below are some example queries that could be used for this table.
+
+
+What is the total amount of dounuts Winston has eaten over his lifetime?
+Select SUM(donuts_eaten) from winstons_donut_log;
+
+
+What is the highest age showing within the log?
+Select Max(years_old) from winstons_donut_logs;
+
+What is the lowest age showing within the log?
+Select Min(years_old) from winstons_donut_logs;
+
+What is the highest amount of donuts Winston has eaten in a given period? Lowest amount? Average amount?
+Select MAX(donuts_eaten) from winstons_donut_logs;
+Select MIN(donuts_eaten) from winstons_donut_logs;
+Select AVG(donuts_eaten) from winstons_donut_logs;
+
+
+How many total logs are there?
+Select Count (*) from winstons_donut_logs;
+
+--display all entries showing amount of donuts eaten at a given age - tell me how many times donuts were eaten where the amount eaten was over 1400 and Winston was older than 25--
+Select * from winstons_donut_logs Group By years_old > 25 Having donuts_eaten > 1400;
+
+--display to include data values that don't exist yet - show me satges of Winston's life, specifiying if he was a baby, juvemile, teen or adult--
+Select id, status, years_old, donuts_eaten, reason,
+Case
+When years_old Between 13 and 17 then "teen"
+When years_old Between 0 and 3 then "baby"
+When years_old Between 18 and 53 then "adult"
+Else "juvenile"
+End
+From winstons_donut_logs
+Where years_old is NOT NULL
+Order By years_old;
+
+--display log that meets specified criteria - show me a log where Winston was younger than 45 and the amount of donuts eaten was under 1400--
+Select * From winstons_donut_logs Where years_old < 45 AND donuts_eaten < 1400;
