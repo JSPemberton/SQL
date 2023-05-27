@@ -1,0 +1,40 @@
+In this SQL code, I am querying a database that contains various data points around Netlix
+
+
+How many movie titles are there in the database?
+Select count(*)
+From "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
+Where type='Movie';
+
+When was the most recent batch of tv shows and/or movies added to the database?
+
+Select max(date(date_added))
+From "CharlotteChaze/BreakIntoTech"."netflix_titles_info";
+
+List all the movies and tv shows in alphabetical order.
+
+Select title, date_added, description, rating
+From "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
+Order By title Asc;
+
+Who was the Director for the movie Bright Star?
+
+Select 
+people.director
+,titles.title
+From "CharlotteChaze/BreakIntoTech"."netflix_people" people
+Left Join  "CharlotteChaze/BreakIntoTech"."netflix_titles_info" titles
+On people.show_id=titles.show_id
+Where title='Bright Star';
+What is the oldest movie in the database and what year was it made?
+
+
+What is the oldest movie in the database and what year was it made?
+Select title, release_year
+FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
+WHERE type='Movie'
+ORDER BY release_year asc
+LIMIT 2;
+
+Limit set to 2 since there are 2 movies that came out in the same year
+
